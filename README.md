@@ -26,4 +26,5 @@ wireshark抓到mpeg ps over rtp的包，分析 -> 追踪流 -> tcp流 -> 原始�
 显示更详细的信息
 
 ## todo
-改名rtptool
+- 集成go-ffmpeg解码h264
+- 折叠图形展示一帧hex
