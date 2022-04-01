@@ -10,6 +10,8 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"github.com/giorgisio/goav/avcodec"
 )
 
 const (
@@ -190,6 +192,12 @@ func (dec *PsDecoder) decodeProgramStreamMap() error {
 }
 
 func (dec *PsDecoder) decodeH264(data []byte, len uint32, err bool) error {
+	codec := avcodec.AvcodecFindDecoderByName("h264")
+	if codec == nil {
+		log.Println("find codec err")
+	} else {
+		log.Println("find codec ok")
+	}
 	if dec.param.Verbose {
 		log.Printf("\t\th264 len : %d", len)
 		if data[4] == 0x67 {

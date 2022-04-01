@@ -46,12 +46,7 @@ func parseConsoleParam() (*rtptool.ConsoleParam, error) {
 	return param, nil
 }
 
-func decodePs() {
-	log.SetFlags(log.Lshortfile)
-	param, err := parseConsoleParam()
-	if err != nil {
-		return
-	}
+func decodePs(param *rtptool.ConsoleParam) {
 	psBuf, err := ioutil.ReadFile(param.PsFile)
 	if err != nil {
 		log.Printf("open file: %s error", param.PsFile)
@@ -67,13 +62,7 @@ func decodePs() {
 	decoder.ShowInfo()
 }
 
-func main() {
-	log.SetFlags(log.Lshortfile)
-	param, err := parseConsoleParam()
-	if err != nil {
-		flag.PrintDefaults()
-		return
-	}
+func decodeRtp(param *rtptool.ConsoleParam) {
 	fileBuf, err := ioutil.ReadFile(param.InputFile)
 	if err != nil {
 		log.Printf("open file: %s error", param.InputFile)
@@ -102,4 +91,14 @@ func main() {
 	}
 	decoder.Save()
 	decoder.DumpStream()
+}
+
+func main() {
+	log.SetFlags(log.Lshortfile)
+	param, err := parseConsoleParam()
+	if err != nil {
+		flag.PrintDefaults()
+		return
+	}
+	decodePs(param)
 }
